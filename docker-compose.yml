@@ -1,0 +1,12 @@
+services:
+  admin:
+    build:
+      context: ./api/admin-service
+      dockerfile: Dockerfile
+
+    container_name: justask-admin
+
+    ports:
+      - "8080:8080"
+
+    restart: unless-stopped

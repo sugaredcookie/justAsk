@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#the mvm jar file created
+target/
+*.log
+.env
