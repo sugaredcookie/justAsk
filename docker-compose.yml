@@ -1,8 +1,10 @@
 services:
   admin:
-    image: ghcr.io/sugaredcookie/justask-admin:latest
+    build:
+      context: ./api/admin-service
+      dockerfile: Dockerfile
 
-    container_name: qa-admin
+    container_name: justask-admin
 
     ports:
       - "8080:8080"
