@@ -28,6 +28,10 @@ public class User {
     @Column
     private float posterRating;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     public User(){}
 
 }
