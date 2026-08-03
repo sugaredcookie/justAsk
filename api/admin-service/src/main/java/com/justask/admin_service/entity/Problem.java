@@ -18,16 +18,14 @@ public class Problem {
     @Column
     private String explanation;
 
-    //OUTGOING FK TO SERVICE (Strict Categorization)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", nullable = false)
     private Service serviceTag;
 
-    //OUTGOING FK TO POSTER
+    @ManyToOne
     @JoinColumn(name = "poster_id", nullable = false)
     private User poster;
 
-    //OUTGOING FK TO SOLVER (nullable)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "solver_id")
     private User solver;
