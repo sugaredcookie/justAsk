@@ -1,0 +1,3 @@
+[submodule "monitoring-stack"]
+	path = monitoring-stack
+	url = git@github.com:HamdaanSarfaraz/monitoring-stack.git
