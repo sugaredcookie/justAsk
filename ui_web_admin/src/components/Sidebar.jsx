@@ -1,25 +1,38 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, FileText, Flag, 
   ShieldCheck, Megaphone, Calendar, BarChart,
-  Bot, Settings, LogOut, User, X
+  Bot, Settings, LogOut, User, X, AlertCircle
 } from 'lucide-react';
 
 const menuItems = [
-  { icon: <LayoutDashboard size={20} />, label: 'Dashboard', id: 'dashboard' },
-  { icon: <Users size={20} />, label: 'Users', id: 'users' },
-  { icon: <FileText size={20} />, label: 'Posts', id: 'posts' },
-  { icon: <Flag size={20} />, label: 'Reports', id: 'reports' },
-  { icon: <ShieldCheck size={20} />, label: 'Verification', id: 'verification' },
-  { icon: <Megaphone size={20} />, label: 'Announcements', id: 'announcements' },
-  { icon: <Calendar size={20} />, label: 'Events', id: 'events' },
-  { icon: <BarChart size={20} />, label: 'Analytics', id: 'analytics' },
-  { icon: <Bot size={20} />, label: 'AI Moderation', id: 'ai-moderation' },
-  { icon: <Settings size={20} />, label: 'Settings', id: 'settings' },
+  { icon: <LayoutDashboard size={20} />, label: 'Dashboard', id: 'dashboard', path: '/dashboard' },
+  { icon: <Users size={20} />, label: 'Users', id: 'users', path: '/users' },
+  { icon: <FileText size={20} />, label: 'Posts', id: 'posts', path: '/posts' },
+  { icon: <AlertCircle size={20} />, label: 'Issues', id: 'issues', path: '/issues' },
+  { icon: <ShieldCheck size={20} />, label: 'Verification', id: 'verification', path: '/verification' },
+  { icon: <Megaphone size={20} />, label: 'Announcements', id: 'announcements', path: '/announcements' },
+  { icon: <Calendar size={20} />, label: 'Events', id: 'events', path: '/events' },
+  { icon: <BarChart size={20} />, label: 'Analytics', id: 'analytics', path: '/analytics' },
+  { icon: <Bot size={20} />, label: 'AI Moderation', id: 'ai-moderation', path: '/ai-moderation' },
+  { icon: <Settings size={20} />, label: 'Settings', id: 'settings', path: '/settings' },
 ];
 
 export default function Sidebar({ isMobileOpen, setIsMobileOpen }) {
-  const [activeItem, setActiveItem] = useState('dashboard');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeItem, setActiveItem] = useState(() => {
+    const currentPath = location.pathname;
+    const active = menuItems.find(item => item.path === currentPath);
+    return active ? active.id : 'dashboard';
+  });
+
+  const handleNavigation = (item) => {
+    setActiveItem(item.id);
+    navigate(item.path);
+    if (isMobileOpen) setIsMobileOpen(false);
+  };
 
   const SidebarContent = () => (
     <>
@@ -36,7 +49,7 @@ export default function Sidebar({ isMobileOpen, setIsMobileOpen }) {
         {menuItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => setActiveItem(item.id)}
+            onClick={() => handleNavigation(item)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
               activeItem === item.id
                 ? 'bg-[#22C55E]/10 text-[#22C55E]'
@@ -60,7 +73,10 @@ export default function Sidebar({ isMobileOpen, setIsMobileOpen }) {
             <p className="text-xs text-[#94A3B8]">admin@justask.com</p>
           </div>
         </div>
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#94A3B8] hover:text-white hover:bg-[#151B23] transition-all duration-200">
+        <button 
+          onClick={() => navigate('/login')}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#94A3B8] hover:text-white hover:bg-[#151B23] transition-all duration-200"
+        >
           <LogOut size={20} />
           <span>Logout</span>
         </button>
