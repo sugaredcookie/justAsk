@@ -23,8 +23,8 @@ public class ConflictService {
                         conflict.getProblemId(),
                         conflict.getDescription(),
                         conflict.getStatus().name(), // Converts the Enum to a String
-                        conflict.getPoster().getDisplayName(), // This won't trigger an extra DB hit now!
-                        conflict.getSolver().getDisplayName(), // Neither will this!
+                        conflict.getPoster().getName(), // This won't trigger an extra DB hit now!
+                        conflict.getSolver().getName(), // Neither will this!
                         conflict.getCreatedAt(),
                         conflict.getResolvedAt()
                 ))
